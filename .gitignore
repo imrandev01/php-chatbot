@@ -1,0 +1,22 @@
+# Ignore local DB config with credentials
+dbconfig/config.php
+
+# Node / PHP / editor
+node_modules/
+vendor/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archives and logs
+*.zip
+*.log
+
+# Ignore helper scripts used only for local setup
+scripts/
+
+# Environment files
+.env
