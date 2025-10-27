@@ -56,3 +56,15 @@ If you want, I can:
 - Walk you step-by-step while you create the 000webhost account and upload files (I can provide exact text to paste into the control panel and the exact edits for `dbconfig/config.php`).
 
 Tell me which host you prefer and whether you want me to create a production-friendly `.htaccess` and disable debug output. I'll then (a) update any remaining local config, (b) give the exact quick-edit content for `dbconfig/config.php` you can paste on the server, and (c) walk you through phpMyAdmin import commands.
+
+## Optional: Automatic deploy from GitHub (GitHub Actions)
+
+If you'd like automatic deployments on push to `main`, this repository includes a sample GitHub Actions workflow `.github/workflows/deploy.yml` that will upload the repo to an FTP server.
+
+Steps to enable automatic deploy:
+1. In your GitHub repository go to Settings → Secrets and Variables → Actions → New repository secret.
+2. Add the following secrets: `FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD`.
+3. Confirm the workflow file `.github/workflows/deploy.yml` fits your host (modify `local-dir` or action inputs if needed).
+4. Push to `main`; the workflow will run and deploy files to the FTP host.
+
+Important: Keep `dbconfig/config.php` only on the server and never commit it. The workflow uploads repository files but should not overwrite your server-only config if you place that file outside the repository path or protect it on the host.

@@ -1,6 +1,17 @@
 <?php
 	session_start();
-	require 'dbconfig/config.php';
+
+// If site isn't configured yet (server-side config missing), show a friendly message instead of a fatal error
+if (!file_exists(__DIR__ . '/dbconfig/config.php')) {
+	http_response_code(500);
+	echo '<h2>Site not configured</h2>';
+	echo '<p>The application configuration file <code>dbconfig/config.php</code> is missing on the server.</p>';
+	echo '<p>Create the file from <code>dbconfig/config.example.php</code> and add your database credentials.</p>';
+	echo '<p>See the project README or contact the site administrator.</p>';
+	exit;
+}
+
+require 'dbconfig/config.php';
 ?>
 <!DOCTYPE html>
 <html>

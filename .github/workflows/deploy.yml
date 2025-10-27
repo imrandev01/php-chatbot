@@ -1,0 +1,25 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          local-dir: .
+          git-ftp-args: --exclude .gitignore --exclude .github
+
+# Notes:
+# - Add FTP_HOST, FTP_USERNAME and FTP_PASSWORD as repository secrets.
+# - This action will upload the repository files to the FTP server root; set your host remote dir in the action inputs if needed.
